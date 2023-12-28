@@ -10,10 +10,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         findViewById<StatsView>(R.id.StatsView).data = listOf(
-            0.25F,
-            0.25F,
-            0.25F,
-            0.25F
-        )
+   //         500F, 500F, 200F, 300F // Для задания 2
+
+             0.25F, 0.25F,  //Для задания 3
+
+            )
     }
 }
