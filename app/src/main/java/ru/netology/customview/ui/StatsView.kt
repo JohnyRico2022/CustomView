@@ -42,7 +42,6 @@ class StatsView @JvmOverloads constructor(
         }
     }
 
-
     var data: List<Float> = emptyList()
         set(value) {
             field = value
@@ -53,10 +52,28 @@ class StatsView @JvmOverloads constructor(
     private var center = PointF()
     private var oval = RectF()
 
-
     private val paint = Paint(
         Paint.ANTI_ALIAS_FLAG
     ).apply {
+        strokeWidth = lineWidth.toFloat()
+        style = Paint.Style.STROKE
+        strokeJoin = Paint.Join.ROUND
+        strokeCap = Paint.Cap.ROUND
+    }
+    private val paintDot = Paint(
+        Paint.ANTI_ALIAS_FLAG
+    ).apply {
+        color = colors[0]
+        strokeWidth = lineWidth.toFloat()
+        style = Paint.Style.STROKE
+        strokeJoin = Paint.Join.ROUND
+        strokeCap = Paint.Cap.ROUND
+    }
+
+    private val paintHint = Paint(
+        Paint.ANTI_ALIAS_FLAG
+    ).apply {
+        color = 0x80808080.toInt()
         strokeWidth = lineWidth.toFloat()
         style = Paint.Style.STROKE
         strokeJoin = Paint.Join.ROUND
@@ -82,29 +99,37 @@ class StatsView @JvmOverloads constructor(
             center.x + radius,
             center.y + radius,
         )
-
     }
 
     override fun onDraw(canvas: Canvas) {
+        canvas.drawCircle(center.x, center.y, radius, paintHint)
+
         if (data.isEmpty()) {
             return
         }
 
         var startAngle = -90F
+
+        var inputData = data.sum()
+
+        inputData = if (inputData < 1) 1F else data.sum()
+
         data.forEachIndexed() { index, datum ->
-            val angle = datum * 360F
+
+            val angle = datum * 360F / inputData
             paint.color = colors.getOrElse(index) { generationRandomColor() }
             canvas.drawArc(oval, startAngle, angle, false, paint)
             startAngle += angle
         }
 
         canvas.drawText(
-            "%.2f%%".format(data.sum() * 100),
+            "%.2f%%".format(data.sum() * 100 / inputData),
             center.x,
             center.y + textPaint.textSize / 4,
             textPaint
         )
-        //       canvas.drawCircle(center.x,center.y, radius, paint)
+
+        canvas.drawPoint(center.x, center.y - radius, paintDot)
     }
 
     private fun generationRandomColor() = Random.nextInt(0xFF000000.toInt(), 0xFFFFFFFF.toInt())
