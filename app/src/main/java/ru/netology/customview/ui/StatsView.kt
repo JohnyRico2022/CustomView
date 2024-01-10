@@ -1,7 +1,6 @@
 package ru.netology.customview.ui
 
 import android.animation.ValueAnimator
-import android.animation.ValueAnimator.INFINITE
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
@@ -30,7 +29,7 @@ class StatsView @JvmOverloads constructor(
     private var textSize = AndroidUtils.dp(context, 20).toFloat()
     private var lineWidth = AndroidUtils.dp(context, 5)
     private var colors = emptyList<Int>()
-    private var realisation: Int = 0
+    var realisation: Int = 0
 
     init {
         context.withStyledAttributes(attributeSet, R.styleable.StatsView) {
@@ -128,7 +127,7 @@ class StatsView @JvmOverloads constructor(
         )
     }
 
-    fun updateAnim() {
+    private fun updateAnim() {
         valueAnimator?.let {
             it.removeAllListeners()
             it.cancel()
@@ -141,7 +140,6 @@ class StatsView @JvmOverloads constructor(
                 invalidate()
             }
             duration = 2500
-            repeatCount = INFINITE
             interpolator = LinearInterpolator()
         }.also {
             it.start()
