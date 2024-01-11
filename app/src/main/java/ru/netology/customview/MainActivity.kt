@@ -18,9 +18,10 @@ class MainActivity : AppCompatActivity() {
             btn.setOnClickListener {
 
                 when (radioGroup.checkedRadioButtonId) {
-                    R.id.one -> StatsView.realisation = 1
-                    R.id.two -> StatsView.realisation = 2
-                    else -> StatsView.realisation = 3
+                    R.id.normal_button -> StatsView.realisation = 1
+                    R.id.rotation_button -> StatsView.realisation = 2
+                    R.id.bidirectional_button -> StatsView.realisation = 3
+                    else -> StatsView.realisation = 4
                 }
 
                 StatsView.data = listOf(0.25F, 0.25F, 0.25F, 0.25F)

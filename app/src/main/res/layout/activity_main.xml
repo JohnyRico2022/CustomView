@@ -10,33 +10,39 @@
         android:id="@+id/radio_group"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="24dp"
-        android:checkedButton="@id/one"
+        android:layout_marginEnd="32dp"
+        android:checkedButton="@id/normal_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <RadioButton
-            android:id="@+id/one"
+            android:id="@+id/normal_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="normal"
             android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/two"
+            android:id="@+id/rotation_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="rotation"
             android:textSize="16sp" />
 
         <RadioButton
-            android:id="@+id/three"
+            android:id="@+id/bidirectional_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="bidirectional"
+            android:textSize="16sp" />
+        <RadioButton
+            android:id="@+id/sequential_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="sequential"
             android:textSize="16sp" />
     </RadioGroup>
 
