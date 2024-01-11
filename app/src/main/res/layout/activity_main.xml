@@ -38,6 +38,7 @@
             android:layout_height="wrap_content"
             android:text="bidirectional"
             android:textSize="16sp" />
+
         <RadioButton
             android:id="@+id/sequential_button"
             android:layout_width="wrap_content"
