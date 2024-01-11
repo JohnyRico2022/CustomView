@@ -93,7 +93,16 @@ class StatsView @JvmOverloads constructor(
         if (data.isEmpty()) {
             return
         }
+
+        canvas.drawText(
+            "%.2f%%".format(data.sum() * 100),
+            center.x,
+            center.y + textPaint.textSize / 4,
+            textPaint
+        )
+
         var startFrom = -90F
+        val maxAngle = 360 * progress + startFrom
 
         when (realisation) {
             1 -> for ((index, datum) in data.withIndex()) {
@@ -110,21 +119,23 @@ class StatsView @JvmOverloads constructor(
                 startFrom += angle
             }
 
-            else -> for ((index, datum) in data.withIndex()) {
+            3-> for ((index, datum) in data.withIndex()) {
                 val angle = datum * 360F
                 paint.color = colors.getOrNull(index) ?: generationRandomColor()
                 canvas.drawArc(oval, startFrom + 45F, -angle / 2 * progress, false, paint)
                 canvas.drawArc(oval, startFrom + 45F, angle / 2 * progress, false, paint)
                 startFrom += angle
             }
-        }
 
-        canvas.drawText(
-            "%.2f%%".format(data.sum() * 100),
-            center.x,
-            center.y + textPaint.textSize / 4,
-            textPaint
-        )
+            else -> for ((index, datum) in data.withIndex()) {
+                val angle = datum * 360F
+                val rotationAngle = min(angle, maxAngle - startFrom)
+                paint.color = colors.getOrElse(index) { generationRandomColor() }
+                canvas.drawArc(oval, startFrom, rotationAngle, false, paint)
+                startFrom += angle
+                if (startFrom > maxAngle) return
+            }
+        }
     }
 
     private fun updateAnim() {
